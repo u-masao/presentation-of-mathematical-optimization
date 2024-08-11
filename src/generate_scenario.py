@@ -1,11 +1,32 @@
-import os
+import logging
 
 import click
 from dotenv import load_dotenv
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
 
 
-def generate(prompt, api_key):
-    return "result text"
+def generate(input_text, model_name="gpt-4o-2024-08-06"):
+    logger = logging.getLogger(__name__)
+
+    chat = ChatOpenAI(temperature=0, model_name=model_name)
+
+    system = "あなたは有能なアシスタントです。ユーザーの指示に基づいて最も適切な回答をしてください。"
+    human = "{text}"
+    prompt = ChatPromptTemplate.from_messages(
+        [("system", system), ("human", human)]
+    )
+
+    chain = prompt | chat
+
+    logger.info(f"chain: {chain}")
+    logger.info(f"prompt: {input_text}")
+    result = chain.invoke(
+        {
+            "text": input_text,
+        }
+    )
+    return result
 
 
 @click.command()
@@ -13,17 +34,25 @@ def generate(prompt, api_key):
 @click.argument("output_filepath", type=click.Path())
 def main(**kwargs):
 
-    openai_api_key = os.environ["OPENAI_API_KEY"]
+    # init logger
+    logger = logging.getLogger(__name__)
 
-    prompt = open(kwargs["prompt"], "r")
+    # load prompt
+    prompt = open(kwargs["prompt"], "r").read()
 
-    result = generate(prompt, openai_api_key)
+    # generate
+    result = generate(prompt)
 
-    print(result)
+    # debug output
+    logger.debug(result.dict())
+    logger.info(result.content)
 
-    open(kwargs["output_filepath"], "w").write(result)
+    # save
+    open(kwargs["output_filepath"], "w").write(result.content)
 
 
 if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(level=logging.INFO, format=log_fmt)
     load_dotenv()
     main()
