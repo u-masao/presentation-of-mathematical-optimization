@@ -5,8 +5,8 @@ stages:
     deps:
     - path: data/raw/scenario-prompt.md
       hash: md5
-      md5: a49158e8de564ebf54f02caaebc5f6c1
-      size: 1387
+      md5: e55cbb0de356b1207ce3bd928d9ccabf
+      size: 1656
     - path: src/generate_scenario.py
       hash: md5
       md5: 420f8af2126dfb8a92c4c876aacc6314
@@ -14,5 +14,5 @@ stages:
     outs:
     - path: data/interim/scenario.md
       hash: md5
-      md5: a5700a4dd7d182850f7cc2bf80f0b6a6
-      size: 2539
+      md5: c5e322ca834309dc742cb1f5dd978e4f
+      size: 3355
