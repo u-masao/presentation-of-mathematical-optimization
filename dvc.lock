@@ -5,8 +5,8 @@ stages:
     deps:
     - path: data/raw/scenario-prompt.md
       hash: md5
-      md5: e3e541b49713aa4046a59d25d10d710b
-      size: 2293
+      md5: 59f8a39b7b9f2f99a1b720b915dfc5a0
+      size: 2301
     - path: src/generate_scenario.py
       hash: md5
       md5: 6cd05695e6fe3374d95eeb9a18822d56
@@ -14,8 +14,8 @@ stages:
     outs:
     - path: data/interim/scenario.md
       hash: md5
-      md5: 83293ab8c694c1f9b0eeef1028101429
-      size: 2478
+      md5: 66e879b687754bec4b3c011154173d8d
+      size: 3085
   convert_to_pdf:
     cmd: mkdir -p build ; rm -f build/* ; cp data/raw/style.css data/interim/scenario.md
       build/ ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp scenario.md
@@ -23,8 +23,8 @@ stages:
     deps:
     - path: data/interim/scenario.md
       hash: md5
-      md5: 83293ab8c694c1f9b0eeef1028101429
-      size: 2478
+      md5: 66e879b687754bec4b3c011154173d8d
+      size: 3085
     - path: data/raw/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
@@ -32,5 +32,5 @@ stages:
     outs:
     - path: data/interim/scenario.pdf
       hash: md5
-      md5: 82a1d2b429282d58f872bfb9f09ddf73
-      size: 200725
+      md5: 4b26e57240ccada4bedf59ec91082f85
+      size: 285449
