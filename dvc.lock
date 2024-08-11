@@ -9,8 +9,8 @@ stages:
       size: 1327
     - path: src/generate_scenario.py
       hash: md5
-      md5: 01a62aa2988090fccadb29d25272561b
-      size: 533
+      md5: 6fa60ef9e726919f2d033886dc18e8e7
+      size: 535
     outs:
     - path: data/interim/scenario.md
       hash: md5
