@@ -9,3 +9,12 @@ stages:
     - data/raw/scenario-prompt.md
     outs:
     - data/interim/scenario.md
+  convert_to_pdf:
+    cmd: >-
+      mkdir -p build ; rm -f build/* ; cp data/interim/scenario.md build/ ;
+      docker run --rm -v ./build/:/home/marp/app/ marpteam/marp-cli scenario.md --pdf ;
+      cp build/scenario.pdf data/interim/scenario.pdf
+    deps:
+    - data/interim/scenario.md
+    outs:
+    - data/interim/scenario.pdf
