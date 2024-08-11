@@ -1,4 +1,5 @@
 
+all: lint repro
 lint:
 	poetry run isort src
 	poetry run black src -l 79
