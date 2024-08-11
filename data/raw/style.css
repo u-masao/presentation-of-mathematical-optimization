@@ -1,0 +1,9 @@
+@import "default";
+
+body {
+  font-family: "Noto Serif CJK JP",serif;
+}
+
+h1 {
+  color: green;
+}
