@@ -16,3 +16,17 @@ stages:
       hash: md5
       md5: 08f3b6ba1fa4efa5921f94be61d0c840
       size: 2570
+  convert_to_pdf:
+    cmd: mkdir -p build ; rm -f build/* ; cp data/interim/scenario.md build/ ; docker
+      run --rm -v ./build/:/home/marp/app/ marpteam/marp-cli scenario.md --pdf ; cp
+      build/scenario.pdf data/interim/scenario.pdf
+    deps:
+    - path: data/interim/scenario.md
+      hash: md5
+      md5: 0c8eb1a2c5f2a76523aa04b758690974
+      size: 2570
+    outs:
+    - path: data/interim/scenario.pdf
+      hash: md5
+      md5: 64dc167d2f5210ec5ee1cf6c1b5db1f5
+      size: 358112
