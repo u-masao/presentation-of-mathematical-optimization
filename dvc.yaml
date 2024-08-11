@@ -11,10 +11,13 @@ stages:
     - data/interim/scenario.md
   convert_to_pdf:
     cmd: >-
-      mkdir -p build ; rm -f build/* ; cp data/interim/scenario.md build/ ;
-      docker run --rm -v ./build/:/home/marp/app/ marpteam/marp-cli scenario.md --pdf ;
+      mkdir -p build ; rm -f build/* ;
+      cp data/raw/style.css data/interim/scenario.md build/ ;
+      docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      scenario.md --pdf --theme style.css;
       cp build/scenario.pdf data/interim/scenario.pdf
     deps:
+    - data/raw/style.css
     - data/interim/scenario.md
     outs:
     - data/interim/scenario.pdf
