@@ -1,0 +1,11 @@
+stages:
+  generate_scenario:
+    cmd: >-
+      poetry run python -m src.generate_scenario
+      data/raw/scenario-prompt.md
+      data/interim/scenario.md
+    deps:
+    - src/generate_scenario.py
+    - data/raw/scenario-prompt.md
+    outs:
+    - data/interim/scenario.md

@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  generate_scenario:
+    cmd: poetry run python -m src.generate_scenario data/raw/scenario-prompt.md data/interim/scenario.md
+    deps:
+    - path: data/raw/scenario-prompt.md
+      hash: md5
+      md5: 21aadcffb931172e851926687855b494
+      size: 1327
+    - path: src/generate_scenario.py
+      hash: md5
+      md5: 01a62aa2988090fccadb29d25272561b
+      size: 533
+    outs:
+    - path: data/interim/scenario.md
+      hash: md5
+      md5: 353cb845acbad67a25293c3eb4403710
+      size: 11
