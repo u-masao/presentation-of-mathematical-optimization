@@ -48,7 +48,7 @@ def main(**kwargs):
     logger.info(result.content)
 
     # save
-    open(kwargs["output_filepath"], "w").write(result.content)
+    open(kwargs["output_filepath"], "w").write(str(result.content).strip())
 
 
 if __name__ == "__main__":
