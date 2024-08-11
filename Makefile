@@ -12,3 +12,9 @@ repro: check_commit
 check_commit:
 	git diff --exit-code
 	git diff --exit-code --staged
+
+list_fonts:
+	docker run -it --entrypoint fc-list  marp-cli-ja | sort
+
+build_image:
+	docker build -t marp-cli-ja .
