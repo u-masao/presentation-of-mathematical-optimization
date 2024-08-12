@@ -12,3 +12,6 @@ __pycache__
 
 # mlflow experiments log
 /mlruns/
+
+# LibreOffice cache
+.~lock.*
