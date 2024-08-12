@@ -4,12 +4,12 @@ stages:
       id: ${ids}
     cmd: >-
       poetry run python -m src.generate_scenario
-      data/raw/scenario-prompt.md
+      src/prompt.md
       data/interim/scenario-${item.id}.md
       --temperature=${temperature}
     deps:
     - src/generate_scenario.py
-    - data/raw/scenario-prompt.md
+    - src/prompt.md
     outs:
     - data/interim/scenario-${item.id}.md
   convert_to_pdf:
@@ -17,14 +17,14 @@ stages:
       id: ${ids}
     cmd: >-
       mkdir -p build ; rm -f build/* ;
-      cp data/raw/style.css build/ ;
+      cp src/style.css build/ ;
       cp data/interim/scenario-${item.id}.md build/temp.md ;
       docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
       temp.md -o temp.pdf --pdf --theme style.css;
       cp build/temp.pdf
       data/interim/scenario-${item.id}.pdf
     deps:
-    - data/raw/style.css
+    - src/style.css
     - data/interim/scenario-${item.id}.md
     outs:
     - data/interim/scenario-${item.id}.pdf
