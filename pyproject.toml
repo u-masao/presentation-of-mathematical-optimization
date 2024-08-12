@@ -13,6 +13,7 @@ langchain-openai = "^0.1.21"
 mlflow = "^2.15.1"
 markdown-to-json = "^2.1.1"
 python-pptx = "^1.0.2"
+beautifulsoup4 = "^4.12.3"
 
 
 [tool.poetry.group.dev.dependencies]
