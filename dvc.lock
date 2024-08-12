@@ -35,142 +35,142 @@ stages:
       md5: 92785212976fd55758aaea0afe4c9e69
       size: 329817
   generate_scenario@0:
-    cmd: poetry run python -m src.generate_scenario data/raw/scenario-prompt.md data/interim/scenario-0.md
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-0.md
       --temperature=0.8
     deps:
-    - path: data/raw/scenario-prompt.md
-      hash: md5
-      md5: 10e98b3d3bbc6268506e1eae1bd58fb7
-      size: 3486
     - path: src/generate_scenario.py
       hash: md5
       md5: a3e9cb1134a77be927869c0aba32993c
       size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: e41b8b623909fc5e43672910e275c2f6
+      size: 4065
     outs:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: 1394cb3c350bc409d3234f9f70be392b
-      size: 5431
+      md5: dc2785433b26116e4b995ef0b063bd5f
+      size: 6782
   generate_scenario@1:
-    cmd: poetry run python -m src.generate_scenario data/raw/scenario-prompt.md data/interim/scenario-1.md
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-1.md
       --temperature=0.8
     deps:
-    - path: data/raw/scenario-prompt.md
-      hash: md5
-      md5: 10e98b3d3bbc6268506e1eae1bd58fb7
-      size: 3486
     - path: src/generate_scenario.py
       hash: md5
       md5: a3e9cb1134a77be927869c0aba32993c
       size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: e41b8b623909fc5e43672910e275c2f6
+      size: 4065
     outs:
     - path: data/interim/scenario-1.md
       hash: md5
-      md5: 125931546bceba308945670b33defd71
-      size: 6902
+      md5: aa76b0d166e677b5f178a46baed8f36a
+      size: 5036
   generate_scenario@2:
-    cmd: poetry run python -m src.generate_scenario data/raw/scenario-prompt.md data/interim/scenario-2.md
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-2.md
       --temperature=0.8
     deps:
-    - path: data/raw/scenario-prompt.md
-      hash: md5
-      md5: 10e98b3d3bbc6268506e1eae1bd58fb7
-      size: 3486
     - path: src/generate_scenario.py
       hash: md5
       md5: a3e9cb1134a77be927869c0aba32993c
       size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: e41b8b623909fc5e43672910e275c2f6
+      size: 4065
     outs:
     - path: data/interim/scenario-2.md
       hash: md5
-      md5: eba03ee427ec2903acaeb6499fd85cfc
-      size: 6120
+      md5: d2e99ee52a08fa35efb8a57c41fe1f9d
+      size: 7189
   generate_scenario@3:
-    cmd: poetry run python -m src.generate_scenario data/raw/scenario-prompt.md data/interim/scenario-3.md
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-3.md
       --temperature=0.8
     deps:
-    - path: data/raw/scenario-prompt.md
-      hash: md5
-      md5: 10e98b3d3bbc6268506e1eae1bd58fb7
-      size: 3486
     - path: src/generate_scenario.py
       hash: md5
       md5: a3e9cb1134a77be927869c0aba32993c
       size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: e41b8b623909fc5e43672910e275c2f6
+      size: 4065
     outs:
     - path: data/interim/scenario-3.md
       hash: md5
-      md5: 1930a85b0dc13b34d4b5bf5ea774efbc
-      size: 5119
+      md5: fa11e4cfff49e04617b2bbac34c7c974
+      size: 5245
   convert_to_pdf@0:
-    cmd: mkdir -p build ; rm -f build/* ; cp data/raw/style.css build/ ; cp data/interim/scenario-0.md
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-0.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
       temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-0.pdf
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: 1394cb3c350bc409d3234f9f70be392b
-      size: 5431
-    - path: data/raw/style.css
+      md5: dc2785433b26116e4b995ef0b063bd5f
+      size: 6782
+    - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
       size: 95
     outs:
     - path: data/interim/scenario-0.pdf
       hash: md5
-      md5: 992147fe5d03db8a4b8321bc559bc82b
-      size: 386296
+      md5: cbbae859240ab395d6387bc0fa946791
+      size: 583754
   convert_to_pdf@1:
-    cmd: mkdir -p build ; rm -f build/* ; cp data/raw/style.css build/ ; cp data/interim/scenario-1.md
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-1.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
       temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-1.pdf
     deps:
     - path: data/interim/scenario-1.md
       hash: md5
-      md5: 125931546bceba308945670b33defd71
-      size: 6902
-    - path: data/raw/style.css
+      md5: aa76b0d166e677b5f178a46baed8f36a
+      size: 5036
+    - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
       size: 95
     outs:
     - path: data/interim/scenario-1.pdf
       hash: md5
-      md5: 9315f1b0970ee0b907cf875f3c4379e0
-      size: 325885
+      md5: 5c8505f5d594a0e7210b08cc1ce2fe04
+      size: 315510
   convert_to_pdf@2:
-    cmd: mkdir -p build ; rm -f build/* ; cp data/raw/style.css build/ ; cp data/interim/scenario-2.md
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-2.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
       temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-2.pdf
     deps:
     - path: data/interim/scenario-2.md
       hash: md5
-      md5: eba03ee427ec2903acaeb6499fd85cfc
-      size: 6120
-    - path: data/raw/style.css
+      md5: d2e99ee52a08fa35efb8a57c41fe1f9d
+      size: 7189
+    - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
       size: 95
     outs:
     - path: data/interim/scenario-2.pdf
       hash: md5
-      md5: 7c204abba225bc5be2b8dc181e1ffcfd
-      size: 389558
+      md5: 90aa313e7908807ab3ef9e10f42ebe81
+      size: 496959
   convert_to_pdf@3:
-    cmd: mkdir -p build ; rm -f build/* ; cp data/raw/style.css build/ ; cp data/interim/scenario-3.md
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-3.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
       temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-3.pdf
     deps:
     - path: data/interim/scenario-3.md
       hash: md5
-      md5: 1930a85b0dc13b34d4b5bf5ea774efbc
-      size: 5119
-    - path: data/raw/style.css
+      md5: fa11e4cfff49e04617b2bbac34c7c974
+      size: 5245
+    - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
       size: 95
     outs:
     - path: data/interim/scenario-3.pdf
       hash: md5
-      md5: face8e2ea75958286652a47428a8dbc6
-      size: 330200
+      md5: 43c85f72887456b9113fb11df73310fa
+      size: 410856
