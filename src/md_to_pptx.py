@@ -88,9 +88,9 @@ def make_presentation(html):
 
     # コンテキストを変数に保持
     context = {
-        "h1": None,
-        "h2": None,
-        "h3": None,
+        "h1": "",
+        "h2": "",
+        "h3": "",
     }
 
     # スライド毎にループ
