@@ -28,3 +28,15 @@ stages:
     - data/interim/scenario-${item.id}.md
     outs:
     - data/interim/scenario-${item.id}.pdf
+  convert_to_pptx:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      poetry run python -m src.md_to_pptx
+      data/interim/scenario-${item.id}.md
+      data/processed/scenario-${item.id}.pptx
+    deps:
+    - src/md_to_pptx.py
+    - data/interim/scenario-${item.id}.md
+    outs:
+    - data/processed/scenario-${item.id}.pptx
