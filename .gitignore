@@ -1,4 +1,14 @@
+# environment configuration
 .env
+
+# python runtime cache
 __pycache__
+
+# vim cache
 *.sw[po]
+
+# build cache
 /build/
+
+# mlflow experiments log
+/mlruns/
