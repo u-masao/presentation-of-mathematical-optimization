@@ -17,7 +17,7 @@ check_commit:
 ## make pipeline file
 PIPELINE.md: dvc.yaml params.yaml
 	poetry run dvc dag --md > $@
-	git commit $@ -m 'update dvc pipeline'
+	git commit $@ -m 'update dvc pipeline' || true
 
 
 ##### setup #####
