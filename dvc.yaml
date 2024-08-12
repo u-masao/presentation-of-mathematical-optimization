@@ -46,7 +46,7 @@ stages:
     cmd: >-
       libreoffice --headless --convert-to pdf
       data/processed/scenario-${item.id}.pptx
-      data/processed/scenario-${item.id}.pdf
+      --outdir data/processed/
     deps:
     - data/processed/scenario-${item.id}.pptx
     outs:
