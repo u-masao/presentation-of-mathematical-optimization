@@ -18,3 +18,6 @@ list_fonts:
 
 build_image:
 	docker build -t marp-cli-ja .
+
+mlflow_ui:
+	poetry run mlflow ui
