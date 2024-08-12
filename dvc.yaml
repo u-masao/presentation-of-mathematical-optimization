@@ -12,7 +12,7 @@ stages:
     - src/prompt.md
     outs:
     - data/interim/scenario-${item.id}.md
-  convert_to_pdf:
+  convert_markdown_to_pdf:
     matrix:
       id: ${ids}
     cmd: >-
@@ -28,7 +28,7 @@ stages:
     - data/interim/scenario-${item.id}.md
     outs:
     - data/interim/scenario-${item.id}.pdf
-  convert_to_pptx:
+  convert_markdown_to_pptx:
     matrix:
       id: ${ids}
     cmd: >-
@@ -40,3 +40,14 @@ stages:
     - data/interim/scenario-${item.id}.md
     outs:
     - data/processed/scenario-${item.id}.pptx
+  convert_pptx_to_pdf:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      libreoffice --headless --convert-to pdf
+      data/processed/scenario-${item.id}.pptx
+      data/processed/scenario-${item.id}.pdf
+    deps:
+    - data/processed/scenario-${item.id}.pptx
+    outs:
+    - data/processed/scenario-${item.id}.pdf
