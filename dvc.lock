@@ -310,3 +310,16 @@ stages:
       hash: md5
       md5: 02761d067efe2e32d0772f70c223ab36
       size: 88145
+  convert_pptx_to_pdf@0:
+    cmd: libreoffice --headless --convert-to pdf data/processed/scenario-0.pptx --outdir
+      data/processed/
+    deps:
+    - path: data/processed/scenario-0.pptx
+      hash: md5
+      md5: 0fb1413af3e554dc57ca3f9ed21d009d
+      size: 87434
+    outs:
+    - path: data/processed/scenario-0.pdf
+      hash: md5
+      md5: c0e564c6ad853d8d23a9f1f30d8dd94a
+      size: 158488
