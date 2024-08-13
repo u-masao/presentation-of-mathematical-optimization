@@ -163,14 +163,14 @@ def make_presentation(html):
 
         # スライドを追加
         if slide_texts["title"]:
-            add_slide(prs, slide_texts)
+            add_slide(prs, slide_texts, slide_html)
         else:
             logger.warning(f"skip add slide: {slide_texts}")
 
     return prs
 
 
-def add_slide(prs, slide_texts):
+def add_slide(prs, slide_texts, slide_html):
     # init logger
     logger = logging.getLogger(__name__)
     logger.info(f"{slide_texts=}")
@@ -192,7 +192,9 @@ def add_slide(prs, slide_texts):
     draw_soup_to_placeholder(content, slide_texts["body"])
     for x in content.text_frame.paragraphs:
         x.font.size = Pt(30)
-    slide.notes_slide.notes_text_frame.text = str(slide_texts["body"])
+
+    # note にデバッグ情報を追加
+    slide.notes_slide.notes_text_frame.text = str(slide_html)
 
 
 def parse_li(tag, level=1, ul_ol="ol"):
