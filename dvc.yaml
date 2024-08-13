@@ -28,6 +28,22 @@ stages:
     - data/interim/scenario-${item.id}.md
     outs:
     - data/interim/scenario-${item.id}.pdf
+  convert_markdown_to_html:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      mkdir -p build ; rm -f build/* ;
+      cp src/style.css build/ ;
+      cp data/interim/scenario-${item.id}.md build/temp.md ;
+      docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css;
+      cp build/temp.html
+      data/interim/scenario-${item.id}.html
+    deps:
+    - src/style.css
+    - data/interim/scenario-${item.id}.md
+    outs:
+    - data/interim/scenario-${item.id}.html
   convert_markdown_to_pptx:
     matrix:
       id: ${ids}
