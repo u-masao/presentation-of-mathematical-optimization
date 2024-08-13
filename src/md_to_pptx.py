@@ -7,11 +7,14 @@ import markdown
 import mlflow
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from lxml import etree
 from pptx import Presentation
+from pptx.oxml.ns import qn
 from pptx.util import Mm, Pt
 
 SLIDE_WIDTH_MM = 338.67
 SLIDE_HEIGHT_MM = 190.5
+NSMAP = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
 def log_artifact_from_message(message, filename):
@@ -179,6 +182,25 @@ def parse_li(tag, level=1, ul_ol="ol"):
     return result
 
 
+def remove_unnumbered_list(pg):
+    # 既存の <a:buChar> 要素を検索して削除
+    bu_char_elem = pg._element.pPr.find(qn("a:buChar"))
+    if bu_char_elem is not None:
+        pg._element.pPr.remove(bu_char_elem)
+
+
+def replace_to_numbered_list(pg, style: str = "arabicPlain"):
+
+    remove_unnumbered_list(pg)
+
+    # 新しい <a:buAutoNum> 要素を作成して追加
+    bu_auto_num_elem = pg._element.pPr.makeelement(
+        etree.QName(NSMAP["a"], "buAutoNum"), nsmap=NSMAP
+    )
+    bu_auto_num_elem.set("type", style)
+    pg._element.pPr.append(bu_auto_num_elem)
+
+
 def draw_soup_to_placeholder(ph, soups):
     # init logger
     logger = logging.getLogger(__name__)
@@ -190,6 +212,7 @@ def draw_soup_to_placeholder(ph, soups):
             pg = ph.text_frame.add_paragraph()
             pg.text = soup.get_text()
             pg.level = 0
+            remove_unnumbered_list(pg)
         elif soup.name == "ol":
             li_items = parse_li(soup, ul_ol="ol", level=0)
             logger.info(f"{li_items=}")
@@ -197,6 +220,7 @@ def draw_soup_to_placeholder(ph, soups):
                 pg = ph.text_frame.add_paragraph()
                 pg.text = text
                 pg.level = level
+                replace_to_numbered_list(pg)
         elif soup.name == "ul":
             li_items = parse_li(soup, ul_ol="ul", level=0)
             logger.info(f"{li_items=}")
@@ -207,7 +231,6 @@ def draw_soup_to_placeholder(ph, soups):
 
 
 def convert_markdown_to_pptx(md_text):
-    # docs = markdown_to_json.dictify(md_text)
     html = markdown.markdown(md_text)
     return make_presentation(html)
 
@@ -228,9 +251,7 @@ def main(**kwargs):
     md_text = open(kwargs["input_filepath"], "r").read()
 
     # convert
-    presentation = convert_markdown_to_pptx(
-        md_text,
-    )
+    presentation = convert_markdown_to_pptx(md_text)
 
     # save file
     presentation.save(kwargs["output_filepath"])
