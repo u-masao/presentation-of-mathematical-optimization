@@ -44,13 +44,13 @@ stages:
       size: 2959
     - path: src/prompt.md
       hash: md5
-      md5: f2a88a63f6efa6c7e8762a089dabcefd
-      size: 4579
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
     outs:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: 6ade999ea0d980c59273ad3aecfa9cd2
-      size: 6795
+      md5: b0a723f1343698835d352f0f3594a76f
+      size: 5388
   generate_scenario@1:
     cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-1.md
       --temperature=0.8
@@ -61,13 +61,13 @@ stages:
       size: 2959
     - path: src/prompt.md
       hash: md5
-      md5: f2a88a63f6efa6c7e8762a089dabcefd
-      size: 4579
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
     outs:
     - path: data/interim/scenario-1.md
       hash: md5
-      md5: dcfdb131a1721a12c15cfdd57034e28d
-      size: 8636
+      md5: 5faf65e6c1a2acad8f50fbe3ae018122
+      size: 7979
   generate_scenario@2:
     cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-2.md
       --temperature=0.8
@@ -78,13 +78,13 @@ stages:
       size: 2959
     - path: src/prompt.md
       hash: md5
-      md5: f2a88a63f6efa6c7e8762a089dabcefd
-      size: 4579
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
     outs:
     - path: data/interim/scenario-2.md
       hash: md5
-      md5: 3cb9f027a3b13a11e4ff4ad8738c5eb7
-      size: 5565
+      md5: f8a0ad9261a27d1fcd711da785bc008a
+      size: 7076
   generate_scenario@3:
     cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-3.md
       --temperature=0.8
@@ -95,13 +95,13 @@ stages:
       size: 2959
     - path: src/prompt.md
       hash: md5
-      md5: f2a88a63f6efa6c7e8762a089dabcefd
-      size: 4579
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
     outs:
     - path: data/interim/scenario-3.md
       hash: md5
-      md5: a12a9938708e4c6e7c36e989970d0b2b
-      size: 6405
+      md5: c494bef3b23d3471f613beebc28de096
+      size: 6777
   convert_to_pdf@0:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-0.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
@@ -181,8 +181,8 @@ stages:
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: 6ade999ea0d980c59273ad3aecfa9cd2
-      size: 6795
+      md5: b0a723f1343698835d352f0f3594a76f
+      size: 5388
     - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
@@ -190,8 +190,8 @@ stages:
     outs:
     - path: data/interim/scenario-0.pdf
       hash: md5
-      md5: f9faa8083655df5ce5a8f5b9693d0c6c
-      size: 546447
+      md5: 06866b081b8867cc04dea17f4273b18c
+      size: 434948
   convert_markdown_to_pdf@1:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-1.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
@@ -199,8 +199,8 @@ stages:
     deps:
     - path: data/interim/scenario-1.md
       hash: md5
-      md5: dcfdb131a1721a12c15cfdd57034e28d
-      size: 8636
+      md5: 5faf65e6c1a2acad8f50fbe3ae018122
+      size: 7979
     - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
@@ -208,8 +208,8 @@ stages:
     outs:
     - path: data/interim/scenario-1.pdf
       hash: md5
-      md5: 51bc181a8754b483c8bcdc5e2f09d4a0
-      size: 544141
+      md5: afd0353d21d3b2b3cfd0fe40c3deacf3
+      size: 336501
   convert_markdown_to_pdf@2:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-2.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
@@ -217,8 +217,8 @@ stages:
     deps:
     - path: data/interim/scenario-2.md
       hash: md5
-      md5: 3cb9f027a3b13a11e4ff4ad8738c5eb7
-      size: 5565
+      md5: f8a0ad9261a27d1fcd711da785bc008a
+      size: 7076
     - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
@@ -226,8 +226,8 @@ stages:
     outs:
     - path: data/interim/scenario-2.pdf
       hash: md5
-      md5: bc1363e2c2e8d18f76bcb7c23650072f
-      size: 332814
+      md5: 60a8b0e29034f6ab8c8bb5b2c8990f4c
+      size: 611362
   convert_markdown_to_pdf@3:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-3.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
@@ -235,8 +235,8 @@ stages:
     deps:
     - path: data/interim/scenario-3.md
       hash: md5
-      md5: a12a9938708e4c6e7c36e989970d0b2b
-      size: 6405
+      md5: c494bef3b23d3471f613beebc28de096
+      size: 6777
     - path: src/style.css
       hash: md5
       md5: 99282e14aab56b8f0681a234cd71984b
@@ -244,15 +244,15 @@ stages:
     outs:
     - path: data/interim/scenario-3.pdf
       hash: md5
-      md5: 2a078f520ddc87ce0b19a2374826f7e0
-      size: 356299
+      md5: 45765ab6fa6c5f32220961edd146d8a2
+      size: 307327
   convert_markdown_to_pptx@0:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-0.md data/processed/scenario-0.pptx
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: 6ade999ea0d980c59273ad3aecfa9cd2
-      size: 6795
+      md5: b0a723f1343698835d352f0f3594a76f
+      size: 5388
     - path: src/md_to_pptx.py
       hash: md5
       md5: 5fd769e67a2d1cecd1ce902ab613f622
@@ -260,15 +260,15 @@ stages:
     outs:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: 0561473d31432f4d23f544fe0516ee2f
-      size: 101897
+      md5: d7857346602e91ae7e2b678cdd3cd029
+      size: 90453
   convert_markdown_to_pptx@1:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-1.md data/processed/scenario-1.pptx
     deps:
     - path: data/interim/scenario-1.md
       hash: md5
-      md5: dcfdb131a1721a12c15cfdd57034e28d
-      size: 8636
+      md5: 5faf65e6c1a2acad8f50fbe3ae018122
+      size: 7979
     - path: src/md_to_pptx.py
       hash: md5
       md5: 5fd769e67a2d1cecd1ce902ab613f622
@@ -276,15 +276,15 @@ stages:
     outs:
     - path: data/processed/scenario-1.pptx
       hash: md5
-      md5: d3f60fa5ae149251af44233a967c3bd5
-      size: 109047
+      md5: 4b3acb2780fd0ffdd44135cbad6cd23f
+      size: 102003
   convert_markdown_to_pptx@2:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-2.md data/processed/scenario-2.pptx
     deps:
     - path: data/interim/scenario-2.md
       hash: md5
-      md5: 3cb9f027a3b13a11e4ff4ad8738c5eb7
-      size: 5565
+      md5: f8a0ad9261a27d1fcd711da785bc008a
+      size: 7076
     - path: src/md_to_pptx.py
       hash: md5
       md5: 5fd769e67a2d1cecd1ce902ab613f622
@@ -292,15 +292,15 @@ stages:
     outs:
     - path: data/processed/scenario-2.pptx
       hash: md5
-      md5: ec14d1ec0f323c8bf5ac3a7070647215
-      size: 89450
+      md5: 6e9f37a2ba4be79a973774b3f5e758a6
+      size: 112570
   convert_markdown_to_pptx@3:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-3.md data/processed/scenario-3.pptx
     deps:
     - path: data/interim/scenario-3.md
       hash: md5
-      md5: a12a9938708e4c6e7c36e989970d0b2b
-      size: 6405
+      md5: c494bef3b23d3471f613beebc28de096
+      size: 6777
     - path: src/md_to_pptx.py
       hash: md5
       md5: 5fd769e67a2d1cecd1ce902ab613f622
@@ -308,57 +308,293 @@ stages:
     outs:
     - path: data/processed/scenario-3.pptx
       hash: md5
-      md5: e46e4d8880f54a8d805134e3e4163b88
-      size: 85528
+      md5: 3bc27dd9f577924b4ce32936deb3617e
+      size: 92034
   convert_pptx_to_pdf@0:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-0.pptx --outdir
       data/processed/
     deps:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: 0561473d31432f4d23f544fe0516ee2f
-      size: 101897
+      md5: d7857346602e91ae7e2b678cdd3cd029
+      size: 90453
     outs:
     - path: data/processed/scenario-0.pdf
       hash: md5
-      md5: bfbbae5fd4f49942cccab42b5ace03ff
-      size: 151568
+      md5: bec8106cfe2fbc50d38ac27aceae25c1
+      size: 153882
   convert_pptx_to_pdf@1:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-1.pptx --outdir
       data/processed/
     deps:
     - path: data/processed/scenario-1.pptx
       hash: md5
-      md5: d3f60fa5ae149251af44233a967c3bd5
-      size: 109047
+      md5: 4b3acb2780fd0ffdd44135cbad6cd23f
+      size: 102003
     outs:
     - path: data/processed/scenario-1.pdf
       hash: md5
-      md5: adaaffce76fe25d5f2310a1b71ddf748
-      size: 142987
+      md5: 743991cad8ee7e7a4789543df806ebbd
+      size: 177337
   convert_pptx_to_pdf@2:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-2.pptx --outdir
       data/processed/
     deps:
     - path: data/processed/scenario-2.pptx
       hash: md5
-      md5: ec14d1ec0f323c8bf5ac3a7070647215
-      size: 89450
+      md5: 6e9f37a2ba4be79a973774b3f5e758a6
+      size: 112570
     outs:
     - path: data/processed/scenario-2.pdf
       hash: md5
-      md5: 49ed8c7c8e5a91d338af8f2066a4761e
-      size: 141284
+      md5: 551532fb1f5af7f1d2f83b9aa10a2d89
+      size: 172562
   convert_pptx_to_pdf@3:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-3.pptx --outdir
       data/processed/
     deps:
     - path: data/processed/scenario-3.pptx
       hash: md5
-      md5: e46e4d8880f54a8d805134e3e4163b88
-      size: 85528
+      md5: 3bc27dd9f577924b4ce32936deb3617e
+      size: 92034
     outs:
     - path: data/processed/scenario-3.pdf
       hash: md5
-      md5: 618f66428b3f9f31c3ce90981521c58d
-      size: 150239
+      md5: df04e42eaddd38ce8630fb67b25ae137
+      size: 163137
+  generate_scenario@4:
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-4.md
+      --temperature=0.8
+    deps:
+    - path: src/generate_scenario.py
+      hash: md5
+      md5: a3e9cb1134a77be927869c0aba32993c
+      size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
+    outs:
+    - path: data/interim/scenario-4.md
+      hash: md5
+      md5: e5dc5dfff6f368ddeccbd228c2ac8d1e
+      size: 7324
+  generate_scenario@5:
+    cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-5.md
+      --temperature=0.8
+    deps:
+    - path: src/generate_scenario.py
+      hash: md5
+      md5: a3e9cb1134a77be927869c0aba32993c
+      size: 2959
+    - path: src/prompt.md
+      hash: md5
+      md5: f71de4db944337c8a2f53fa085323563
+      size: 5387
+    outs:
+    - path: data/interim/scenario-5.md
+      hash: md5
+      md5: 16524b16b693fc509a69da32fb189498
+      size: 7171
+  convert_markdown_to_pdf@4:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-4.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-4.pdf
+    deps:
+    - path: data/interim/scenario-4.md
+      hash: md5
+      md5: e5dc5dfff6f368ddeccbd228c2ac8d1e
+      size: 7324
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-4.pdf
+      hash: md5
+      md5: 68731021e44c4f85ae36a6ee52fb3e46
+      size: 580012
+  convert_markdown_to_pdf@5:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-5.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.pdf --pdf --theme style.css; cp build/temp.pdf data/interim/scenario-5.pdf
+    deps:
+    - path: data/interim/scenario-5.md
+      hash: md5
+      md5: 16524b16b693fc509a69da32fb189498
+      size: 7171
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-5.pdf
+      hash: md5
+      md5: 26ccff9e4d59a82d2f5b4c94712c3979
+      size: 515507
+  convert_markdown_to_html@0:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-0.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-0.html
+    deps:
+    - path: data/interim/scenario-0.md
+      hash: md5
+      md5: b0a723f1343698835d352f0f3594a76f
+      size: 5388
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-0.html
+      hash: md5
+      md5: c25bd8e1432377118414d2f9995d7004
+      size: 110943
+  convert_markdown_to_html@1:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-1.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-1.html
+    deps:
+    - path: data/interim/scenario-1.md
+      hash: md5
+      md5: 5faf65e6c1a2acad8f50fbe3ae018122
+      size: 7979
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-1.html
+      hash: md5
+      md5: 933e42d1a2882da353daa85d5a04fa3f
+      size: 121178
+  convert_markdown_to_html@2:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-2.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-2.html
+    deps:
+    - path: data/interim/scenario-2.md
+      hash: md5
+      md5: f8a0ad9261a27d1fcd711da785bc008a
+      size: 7076
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-2.html
+      hash: md5
+      md5: 79e1f1def62b388edd06dc32420b8502
+      size: 123506
+  convert_markdown_to_html@3:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-3.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-3.html
+    deps:
+    - path: data/interim/scenario-3.md
+      hash: md5
+      md5: c494bef3b23d3471f613beebc28de096
+      size: 6777
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-3.html
+      hash: md5
+      md5: 43b8c624440f178ac618891ab03d1469
+      size: 118083
+  convert_markdown_to_html@4:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-4.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-4.html
+    deps:
+    - path: data/interim/scenario-4.md
+      hash: md5
+      md5: e5dc5dfff6f368ddeccbd228c2ac8d1e
+      size: 7324
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-4.html
+      hash: md5
+      md5: 2c96ac166c9fb3a00d4875dfff7e1fcf
+      size: 126424
+  convert_markdown_to_html@5:
+    cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-5.md
+      build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css; cp build/temp.html data/interim/scenario-5.html
+    deps:
+    - path: data/interim/scenario-5.md
+      hash: md5
+      md5: 16524b16b693fc509a69da32fb189498
+      size: 7171
+    - path: src/style.css
+      hash: md5
+      md5: 99282e14aab56b8f0681a234cd71984b
+      size: 95
+    outs:
+    - path: data/interim/scenario-5.html
+      hash: md5
+      md5: 8f0fd0879118a53cda8cb420fa5b6a84
+      size: 114197
+  convert_markdown_to_pptx@4:
+    cmd: poetry run python -m src.md_to_pptx data/interim/scenario-4.md data/processed/scenario-4.pptx
+    deps:
+    - path: data/interim/scenario-4.md
+      hash: md5
+      md5: e5dc5dfff6f368ddeccbd228c2ac8d1e
+      size: 7324
+    - path: src/md_to_pptx.py
+      hash: md5
+      md5: 5fd769e67a2d1cecd1ce902ab613f622
+      size: 8766
+    outs:
+    - path: data/processed/scenario-4.pptx
+      hash: md5
+      md5: 37054c800b647e62ee3764ad3a7aab20
+      size: 104870
+  convert_markdown_to_pptx@5:
+    cmd: poetry run python -m src.md_to_pptx data/interim/scenario-5.md data/processed/scenario-5.pptx
+    deps:
+    - path: data/interim/scenario-5.md
+      hash: md5
+      md5: 16524b16b693fc509a69da32fb189498
+      size: 7171
+    - path: src/md_to_pptx.py
+      hash: md5
+      md5: 5fd769e67a2d1cecd1ce902ab613f622
+      size: 8766
+    outs:
+    - path: data/processed/scenario-5.pptx
+      hash: md5
+      md5: 4c361f79a5163c37864964ccdaea50dd
+      size: 102850
+  convert_pptx_to_pdf@4:
+    cmd: libreoffice --headless --convert-to pdf data/processed/scenario-4.pptx --outdir
+      data/processed/
+    deps:
+    - path: data/processed/scenario-4.pptx
+      hash: md5
+      md5: 37054c800b647e62ee3764ad3a7aab20
+      size: 104870
+    outs:
+    - path: data/processed/scenario-4.pdf
+      hash: md5
+      md5: 7e7cac3a228a79d5314ee8de907593ea
+      size: 163592
+  convert_pptx_to_pdf@5:
+    cmd: libreoffice --headless --convert-to pdf data/processed/scenario-5.pptx --outdir
+      data/processed/
+    deps:
+    - path: data/processed/scenario-5.pptx
+      hash: md5
+      md5: 4c361f79a5163c37864964ccdaea50dd
+      size: 102850
+    outs:
+    - path: data/processed/scenario-5.pdf
+      hash: md5
+      md5: a8d02f52d1814b63d823dce7a48c6641
+      size: 162048
