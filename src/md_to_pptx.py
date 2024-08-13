@@ -9,15 +9,18 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from lxml import etree
 from pptx import Presentation
+from pptx.enum.text import PP_ALIGN
 from pptx.oxml.ns import qn
 from pptx.util import Mm, Pt
 
-SLIDE_WIDTH_MM = 338.67
-SLIDE_HEIGHT_MM = 190.5
+# office xml open の drawingML namespace
 NSMAP = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
 
 
 def log_artifact_from_message(message, filename):
+    """
+    テキストメッセージをファイルに書き込んで mlflow に登録する
+    """
     with tempfile.TemporaryDirectory() as temp_dir:
         file_path = Path(temp_dir) / filename
         open(file_path, "w").write(message)
@@ -25,17 +28,32 @@ def log_artifact_from_message(message, filename):
 
 
 def get_layout_by_name(prs, query):
+    """
+    レイアウト名からレイアウトを取得する
+    ない場合は ValueError を投げる
+    """
+
+    # init logger
     logger = logging.getLogger(__name__)
+
+    # レイアウト名一覧を取得
     names = [x.name for x in prs.slide_layouts]
     logger.info(f"layout names: {names}")
+
+    # レイアウト名を検索(なければ ValueError)
     index = names.index(query)
+
+    # レイアウトを取得
     layout = prs.slide_layouts[index]
     logger.info(f"placeholders: {len(layout.placeholders)}")
     logger.info(f"placeholders name: {[x.name for x in layout.placeholders]}")
     return layout
 
 
-def set_position(placeholder, left=None, top=None, height=None, width=None):
+def set_position_mm(placeholder, left=None, top=None, height=None, width=None):
+    """
+    Placeholder の位置と大きさを修正する
+    """
     if left:
         placeholder.left = Mm(left)
     if top:
@@ -46,40 +64,44 @@ def set_position(placeholder, left=None, top=None, height=None, width=None):
         placeholder.width = Mm(width)
 
 
-def configure_presentation(prs):
-
-    logger = logging.getLogger(__name__)
-    slide_master = prs.slide_master
-    logger.info(f"slide master layouts: {len(slide_master.slide_layouts)}")
+def configure_presentation(
+    prs,
+    slide_width_mm=338.67,
+    slide_height_mm=190.5,
+):
+    """
+    プレゼンテーションの設定
+    スライドレイアウトの調整
+    """
 
     # プレゼンテーションのサイズを変更
-    prs.slide_width = Mm(SLIDE_WIDTH_MM)
-    prs.slide_height = Mm(SLIDE_HEIGHT_MM)
+    prs.slide_width = Mm(slide_width_mm)
+    prs.slide_height = Mm(slide_height_mm)
 
     # レイアウト調整(コンテンツ)
     content_layout = get_layout_by_name(prs, "Title and Content")
-    set_position(
-        content_layout.placeholders[0], 20, 20, 30, SLIDE_WIDTH_MM - 2 * 20
+    set_position_mm(
+        content_layout.placeholders[0], 20, 20, 30, slide_width_mm - 2 * 20
     )
-    set_position(
+    set_position_mm(
         content_layout.placeholders[1],
         20,
         60,
-        SLIDE_HEIGHT_MM - 80,
-        SLIDE_WIDTH_MM - 2 * 20,
+        slide_height_mm - 80,
+        slide_width_mm - 2 * 20,
     )
 
     # レイアウト調整(タイトルスライド)
     title_layout = get_layout_by_name(prs, "Title Slide")
-    set_position(
-        title_layout.placeholders[0], 20, 20, 30, SLIDE_WIDTH_MM - 2 * 20
+    set_position_mm(
+        title_layout.placeholders[0], 20, 20, 30, slide_width_mm - 2 * 20
     )
-    set_position(
+    set_position_mm(
         title_layout.placeholders[1],
         20,
         60,
-        SLIDE_HEIGHT_MM - 80,
-        SLIDE_WIDTH_MM - 2 * 20,
+        slide_height_mm - 80,
+        slide_width_mm - 2 * 20,
     )
 
 
@@ -163,6 +185,7 @@ def add_slide(prs, slide_texts):
     title = slide.shapes.title
     title.text = slide_texts["title"]
     title.text_frame.paragraphs[0].font.size = Pt(40)
+    title.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT
 
     # コンテンツを設定
     content = slide.shapes.placeholders[1]  # content
@@ -201,19 +224,33 @@ def replace_to_numbered_list(pg, style: str = "arabicPlain"):
     pg._element.pPr.append(bu_auto_num_elem)
 
 
+def replace_bu_to_regular(pg):
+
+    remove_unnumbered_list(pg)
+
+    # 新しい <a:buAutoNum> 要素を作成して追加
+    bu_auto_num_elem = pg._element.pPr.makeelement(
+        etree.QName(NSMAP["a"], "buNone"), nsmap=NSMAP
+    )
+    pg._element.pPr.append(bu_auto_num_elem)
+
+
 def draw_soup_to_placeholder(ph, soups):
     # init logger
     logger = logging.getLogger(__name__)
 
     for soup in soups:
         logger.info(f"{soup=}")
-        # トップが p の場合
+
         if soup.name == "p" and len(list(soup.children)) == 1:
+            # 'p' の場合
             pg = ph.text_frame.add_paragraph()
             pg.text = soup.get_text()
             pg.level = 0
-            remove_unnumbered_list(pg)
+            replace_bu_to_regular(pg)
+
         elif soup.name == "ol":
+            # 'ol' 番号ありリストの場合
             li_items = parse_li(soup, ul_ol="ol", level=0)
             logger.info(f"{li_items=}")
             for level, text in li_items:
@@ -221,7 +258,9 @@ def draw_soup_to_placeholder(ph, soups):
                 pg.text = text
                 pg.level = level
                 replace_to_numbered_list(pg)
+
         elif soup.name == "ul":
+            # 'ul' 番号なしリストの場合
             li_items = parse_li(soup, ul_ol="ul", level=0)
             logger.info(f"{li_items=}")
             for level, text in li_items:
