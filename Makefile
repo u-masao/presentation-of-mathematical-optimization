@@ -6,7 +6,7 @@ all: lint repro
 
 ## run generate slide pipeline
 repro: check_commit PIPELINE.md
-	poetry run dvc repro -f
+	poetry run dvc repro
 	git commit dvc.lock -m 'dvc repro' || true
 
 ## commit check
