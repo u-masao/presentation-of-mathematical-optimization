@@ -16,6 +16,7 @@ python-pptx = "^1.0.2"
 beautifulsoup4 = "^4.12.3"
 openai = "^1.40.6"
 object-cache = "^0.1.6"
+pillow = "^10.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
