@@ -1,4 +1,6 @@
 stages:
+
+  # スライド生成用のプロンプトを生成する
   generate_prompt:
     matrix:
       theme_keyword: ${theme_keywords}
@@ -13,6 +15,7 @@ stages:
     outs:
     - data/interim/prompt_sample_${item.theme_keyword}.md
 
+  # スライドを生成する
   generate_scenario:
     matrix:
       id: ${ids}
@@ -27,22 +30,7 @@ stages:
     outs:
     - data/interim/scenario-${item.id}.md
 
-  generate_images:
-    matrix:
-      id: ${ids}
-    cmd: >-
-      poetry run python -m src.generate_images
-      data/interim/scenario-${item.id}.md
-      data/interim/scenario-${item.id}_with_image.md
-      data/interim/images-${item.id}/
-      --temperature=${temperature}
-    deps:
-    - src/generate_images.py
-    - data/interim/scenario-${item.id}.md
-    outs:
-    - data/interim/scenario-${item.id}_with_image.md
-    - data/interim/images-${item.id}/
-
+  # Marp Markdown から PDF に変換する
   convert_markdown_to_pdf:
     matrix:
       id: ${ids}
@@ -60,6 +48,69 @@ stages:
     outs:
     - data/interim/scenario-${item.id}.pdf
 
+  # Marp Markdown から HTML に変換する
+  convert_markdown_to_html:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      mkdir -p build ; rm -f build/* ;
+      cp src/style.css build/ ;
+      cp data/interim/scenario-${item.id}.md build/temp.md ;
+      docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css;
+      cp build/temp.html
+      data/interim/scenario-${item.id}.html
+    deps:
+    - src/style.css
+    - data/interim/scenario-${item.id}.md
+    outs:
+    - data/interim/scenario-${item.id}.html
+
+  # Marp Markdown から編集可能な PPTX に変換する
+  convert_markdown_to_pptx:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      poetry run python -m src.md_to_pptx
+      data/interim/scenario-${item.id}.md
+      data/processed/scenario-${item.id}.pptx
+    deps:
+    - src/md_to_pptx.py
+    - data/interim/scenario-${item.id}.md
+    outs:
+    - data/processed/scenario-${item.id}.pptx
+
+  # PPTX から PDF に変換する(LibreOfficが必要)
+  convert_pptx_to_pdf:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      libreoffice --headless --convert-to pdf
+      data/processed/scenario-${item.id}.pptx
+      --outdir data/processed/
+    deps:
+    - data/processed/scenario-${item.id}.pptx
+    outs:
+    - data/processed/scenario-${item.id}.pdf
+
+  # Marp Markdown から画像ファイルを生成する
+  generate_images:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      poetry run python -m src.generate_images
+      data/interim/scenario-${item.id}.md
+      data/interim/scenario-${item.id}_with_image.md
+      data/interim/images-${item.id}/
+      --temperature=${temperature}
+    deps:
+    - src/generate_images.py
+    - data/interim/scenario-${item.id}.md
+    outs:
+    - data/interim/scenario-${item.id}_with_image.md
+    - data/interim/images-${item.id}/
+
+  # Marp Markdown と生成されが画像から PDF を作成する
   convert_markdown_to_pdf_with_image:
     matrix:
       id: ${ids}
@@ -79,43 +130,3 @@ stages:
     - data/interim/images-${item.id}/
     outs:
     - data/interim/scenario-${item.id}_with_image.pdf
-
-  convert_markdown_to_html:
-    matrix:
-      id: ${ids}
-    cmd: >-
-      mkdir -p build ; rm -f build/* ;
-      cp src/style.css build/ ;
-      cp data/interim/scenario-${item.id}.md build/temp.md ;
-      docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
-      temp.md -o temp.html --html --theme style.css;
-      cp build/temp.html
-      data/interim/scenario-${item.id}.html
-    deps:
-    - src/style.css
-    - data/interim/scenario-${item.id}.md
-    outs:
-    - data/interim/scenario-${item.id}.html
-  convert_markdown_to_pptx:
-    matrix:
-      id: ${ids}
-    cmd: >-
-      poetry run python -m src.md_to_pptx
-      data/interim/scenario-${item.id}.md
-      data/processed/scenario-${item.id}.pptx
-    deps:
-    - src/md_to_pptx.py
-    - data/interim/scenario-${item.id}.md
-    outs:
-    - data/processed/scenario-${item.id}.pptx
-  convert_pptx_to_pdf:
-    matrix:
-      id: ${ids}
-    cmd: >-
-      libreoffice --headless --convert-to pdf
-      data/processed/scenario-${item.id}.pptx
-      --outdir data/processed/
-    deps:
-    - data/processed/scenario-${item.id}.pptx
-    outs:
-    - data/processed/scenario-${item.id}.pdf
