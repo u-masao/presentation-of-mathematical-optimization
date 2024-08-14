@@ -11,18 +11,22 @@ flowchart TD
 	node9["generate_prompt@反実仮想機械学習"]
 	node10["generate_prompt@テキスト埋め込みモデルを利用したベクトル検索"]
 	node11["convert_markdown_to_html@0"]
-	node12["convert_markdown_to_pdf@0"]
-	node13["convert_markdown_to_pdf_with_image@0"]
-	node14["convert_markdown_to_pptx@0"]
-	node15["convert_markdown_to_pptx_with_image@0"]
-	node16["convert_pptx_to_pdf@0"]
-	node17["generate_images@0"]
-	node18["generate_scenario@0"]
-	node14-->node16
-	node17-->node13
-	node17-->node15
-	node18-->node11
-	node18-->node12
-	node18-->node14
-	node18-->node17
+	node12["convert_markdown_to_html_with_image@0"]
+	node13["convert_markdown_to_pdf@0"]
+	node14["convert_markdown_to_pdf_with_image@0"]
+	node15["convert_markdown_to_pptx@0"]
+	node16["convert_markdown_to_pptx_with_image@0"]
+	node17["convert_pptx_to_pdf@0"]
+	node18["convert_pptx_to_pdf_with_image@0"]
+	node19["generate_images@0"]
+	node20["generate_scenario@0"]
+	node15-->node17
+	node16-->node18
+	node19-->node12
+	node19-->node14
+	node19-->node16
+	node20-->node11
+	node20-->node13
+	node20-->node15
+	node20-->node19
 ```
