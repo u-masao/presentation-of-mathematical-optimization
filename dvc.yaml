@@ -103,6 +103,7 @@ stages:
       data/interim/scenario-${item.id}_with_image.md
       data/interim/images-${item.id}/
       --temperature=${temperature}
+      --enable_dummy=${enable_dummy}
     deps:
     - src/generate_images.py
     - data/interim/scenario-${item.id}.md

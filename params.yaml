@@ -1,3 +1,6 @@
+temperature: 0.8
+enable_dummy: True
+# enable_dummy: False
 ids:
   - 0
   # - 1
@@ -5,7 +8,6 @@ ids:
   # - 3
   # - 4
   # - 5
-temperature: 0.8
 theme_keywords:
   - 時系列解析
   - 線形ガウス状態空間モデル
