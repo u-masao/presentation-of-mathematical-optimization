@@ -66,10 +66,6 @@ def main(**kwargs):
     result_dict = result.dict()
     raw_content = result_dict.pop("content")
 
-    # debug output
-    logger.info(f"{result_dict=}")
-    logger.info(f"{raw_content=}")
-
     # strip triple backquotes
     lines = str(raw_content).strip().split("\n")
     if lines[0] == "```":
@@ -80,6 +76,11 @@ def main(**kwargs):
 
     # save file
     open(kwargs["output_filepath"], "w").write(content)
+
+    # debug output
+    logger.info(result_dict)
+    logger.info(raw_content)
+    logger.info(content)
 
     # logging
     log_artifact_from_message(prompt, "prompt.txt")
