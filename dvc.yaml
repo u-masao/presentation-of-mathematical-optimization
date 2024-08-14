@@ -1,4 +1,18 @@
 stages:
+  generate_prompt:
+    matrix:
+      theme_keyword: ${theme_keywords}
+    cmd: >-
+	  poetry run python -m src.generate_prompt
+      src/meta_prompt.md
+      data/interim/prompt_sample_${item.theme_keyword}.md
+      --theme_keyword=${item.theme.keyword}
+    deps:
+    - src/generate_prompt.py
+    - src/meta_prompt.py
+    outs:
+    - data/interim/prompt_sample_${item.theme_keyword}.md
+
   generate_scenario:
     matrix:
       id: ${ids}
