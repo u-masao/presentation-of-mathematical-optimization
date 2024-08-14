@@ -9,6 +9,11 @@ repro: check_commit PIPELINE.md
 	poetry run dvc repro
 	git commit dvc.lock -m 'dvc repro' || true
 
+## run generate slide pipeline with force option
+repro_force: check_commit PIPELINE.md
+	poetry run dvc repro -f
+	git commit dvc.lock -m 'dvc repro' || true
+
 ## commit check
 check_commit:
 	git diff --exit-code
