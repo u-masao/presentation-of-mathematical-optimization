@@ -10,7 +10,7 @@ import requests
 from dotenv import load_dotenv
 from object_cache import object_cache
 from openai import OpenAI
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from tqdm import tqdm
 
 
@@ -50,7 +50,13 @@ def generate_dummy_image(
 ):
     img = Image.new("RGB", (image_width, image_height), color="green")
     draw = ImageDraw.Draw(img)
-    draw.text((image_width // 2, image_height // 2), "Dummy Image")
+    font = ImageFont.load_default().font_variant(size=100)
+    draw.text(
+        (image_width // 10, image_height // 10),
+        "Dummy Image",
+        font=font,
+        fill="blue",
+    )
 
     image_bytes = io.BytesIO()
     img.save(image_bytes, format="PNG")
