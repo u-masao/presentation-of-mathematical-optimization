@@ -21,8 +21,10 @@ def generate(input_text, model_name="gpt-4o-2024-08-06", temperature=0.8):
 
     chat = ChatOpenAI(temperature=temperature, model_name=model_name)
 
-    system = ("あなたは優秀なプロンプトエンジニアです。"
-    "ユーザーの指示に従って史上最強のプロンプトを作成してください。")
+    system = (
+        "あなたは優秀なプロンプトエンジニアです。"
+        "ユーザーの指示に従って史上最強のプロンプトを作成してください。"
+    )
     human = "{text}"
     prompt = ChatPromptTemplate.from_messages(
         [("system", system), ("human", human)]
@@ -43,7 +45,7 @@ def generate(input_text, model_name="gpt-4o-2024-08-06", temperature=0.8):
 @click.command()
 @click.argument("prompt", type=click.Path(exists=True))
 @click.argument("output_filepath", type=click.Path())
-@click.option("--theme_keyword", type=str, default='推薦モデル')
+@click.option("--theme_keyword", type=str, default="推薦モデル")
 @click.option("--temperature", type=float, default=0.8)
 @click.option("--model_name", type=str, default="gpt-4o-2024-08-06")
 def main(**kwargs):
@@ -58,7 +60,7 @@ def main(**kwargs):
     prompt_template = open(kwargs["prompt"], "r").read()
 
     # make prompt
-    prompt = prompt_template.format(theme_keyword=kwargs['theme_keyword'])
+    prompt = prompt_template.format(theme_keyword=kwargs["theme_keyword"])
 
     # generate
     result = generate(
