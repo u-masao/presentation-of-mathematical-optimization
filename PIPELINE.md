@@ -14,13 +14,15 @@ flowchart TD
 	node12["convert_markdown_to_pdf@0"]
 	node13["convert_markdown_to_pdf_with_image@0"]
 	node14["convert_markdown_to_pptx@0"]
-	node15["convert_pptx_to_pdf@0"]
-	node16["generate_images@0"]
-	node17["generate_scenario@0"]
-	node14-->node15
-	node16-->node13
-	node17-->node11
-	node17-->node12
-	node17-->node14
-	node17-->node16
+	node15["convert_markdown_to_pptx_with_image@0"]
+	node16["convert_pptx_to_pdf@0"]
+	node17["generate_images@0"]
+	node18["generate_scenario@0"]
+	node14-->node16
+	node17-->node13
+	node17-->node15
+	node18-->node11
+	node18-->node12
+	node18-->node14
+	node18-->node17
 ```
