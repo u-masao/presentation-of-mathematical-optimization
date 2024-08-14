@@ -12,7 +12,7 @@ from openai import OpenAI
 from tqdm import tqdm
 
 
-def log_artifact_from_message(message, filename, mode:str="w"):
+def log_artifact_from_message(message, filename, mode: str = "w"):
     with tempfile.TemporaryDirectory() as temp_dir:
         file_path = Path(temp_dir) / filename
         open(file_path, mode).write(message)
@@ -75,20 +75,32 @@ def parse_input_and_generate_image(
     logger = logging.getLogger(__name__)
 
     # 変数を初期化
+    results = []
     images_dir = Path(images_dir)
     search_regex = r'!\[(.*)\]\((.*) (".*")\)'
 
     # 入力を行で分解して各行でループ
     lines = input_text.split("\n")
-    results = []
-    for index, line in tqdm(enumerate(lines), total=len(lines)):
-
+    image_count = 0
+    for line in lines:
         # 正規表現で検索
-        m = re.search(search_regex, line)
+        if re.search(search_regex, line):
+            image_count += 0
 
-        # ヒットした？
-        if m:
-            # ヒット
+    with tqdm(total=image_count) as pbar:
+        # 各行をチェック
+        for index, line in enumerate(lines):
+
+            # 正規表現で検索
+            m = re.search(search_regex, line)
+
+            # ヒットした？
+            if m is None:
+                # ヒットしない場合
+                results.append(line)
+                continue
+
+            # ヒットした場合
             prompt = m.group(1)
             logger.info(f"{prompt=}")
 
@@ -100,22 +112,25 @@ def parse_input_and_generate_image(
             relative_image_path = image_filepath.relative_to(
                 Path(output_filepath).parent
             )
-            logger.info(f"{relative_image_path=}")
+            logger.debug(f"{relative_image_path=}")
 
             # ファイルに出力
             open(image_filepath, "wb").write(images[0])
             mlflow.log_artifact(image_filepath)
-            log_artifact_from_message(prompt, f'image_{index}_prompt.txt')
+            log_artifact_from_message(prompt, f"image_{index}_prompt.txt")
 
             # 行を編集
-            line = (
+            new_lines = (
                 f"![width:400px bg right:40%]({relative_image_path})"
                 "\n"
                 f"<!-- image_prompt: {prompt} -->"
             )
 
-        # 結果に保存
-        results.append(line)
+            # 結果に保存
+            results.append(new_lines)
+
+            # プログレスバーをアプデート
+            pbar.update(1)
 
     return "\n".join(results)
 
