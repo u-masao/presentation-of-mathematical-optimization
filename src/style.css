@@ -4,6 +4,10 @@ section {
   justify-content: start;
 }
 
+blockquote {
+    font-size: 0.6em;
+}
+
 body {
   font-family: "Noto Serif CJK JP",serif;
 }
