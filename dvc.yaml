@@ -9,7 +9,7 @@ stages:
       --theme_keyword=${item.theme_keyword}
     deps:
     - src/generate_prompt.py
-    - src/meta_prompt.py
+    - src/meta_prompt.md
     outs:
     - data/interim/prompt_sample_${item.theme_keyword}.md
 
