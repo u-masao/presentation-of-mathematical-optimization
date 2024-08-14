@@ -15,3 +15,6 @@ __pycache__
 
 # LibreOffice cache
 .~lock.*
+
+# object_cache cache
+/.object_cache/
