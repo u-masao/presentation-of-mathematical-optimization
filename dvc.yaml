@@ -143,6 +143,7 @@ stages:
     deps:
     - src/md_to_pptx.py
     - data/interim/scenario-${item.id}_with_image.md
+    - data/interim/images-${item.id}/
     outs:
     - data/processed/scenario-${item.id}_with_image.pptx
 
