@@ -6,7 +6,7 @@ stages:
       poetry run python -m src.generate_prompt
       src/meta_prompt.md
       data/interim/prompt_sample_${item.theme_keyword}.md
-      --theme_keyword=${item.theme.keyword}
+      --theme_keyword=${item.theme_keyword}
     deps:
     - src/generate_prompt.py
     - src/meta_prompt.py
