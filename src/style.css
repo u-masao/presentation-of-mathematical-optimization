@@ -4,21 +4,25 @@ body {
   font-family: "Noto Serif CJK JP",serif;
 }
 
+blockquote {
+  font-size: 0.6em;
+}
+
 section {
   justify-content: start;
-}
-
-blockquote {
-    font-size: 0.6em;
-}
-
-section.subtitle h1,
-section.subtitle h2 {
-    color: red;
 }
 
 section h1,
 section h2,
 section h3 {
+  color: green;
+}
+
+section.subtitle {
+  justify-content: center;
+}
+
+section.subtitle h1 {
+  justify-content: center;
   color: green;
 }
