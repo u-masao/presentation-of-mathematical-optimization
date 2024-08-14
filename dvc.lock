@@ -836,3 +836,40 @@ stages:
       hash: md5
       md5: 71ab7eface7c52e055437a04d27d10a7
       size: 117778
+  convert_markdown_to_html_with_image@0:
+    cmd: mkdir -p build ; rm -fr build/* ; cp src/style.css build/ ; cp data/interim/scenario-0_with_image.md
+      build/temp.md ; cp -r data/interim/images-0 build/ ; docker run --rm -v ./build/:/home/marp/app
+      marp-cli-ja marp temp.md -o temp.html --html --theme style.css --allow-local-files
+      ; cp build/temp.html data/interim/scenario-0_with_image.html
+    deps:
+    - path: data/interim/images-0/
+      hash: md5
+      md5: 8d3079f939c641635a7d936b4a6bd00d.dir
+      size: 433664
+      nfiles: 28
+    - path: data/interim/scenario-0_with_image.md
+      hash: md5
+      md5: 46e0d85d8366290c72d41ad4aac58085
+      size: 11963
+    - path: src/style.css
+      hash: md5
+      md5: 04ebe0b59897bed0d6a6e610df1b5351
+      size: 319
+    outs:
+    - path: data/interim/scenario-0_with_image.html
+      hash: md5
+      md5: 8817af05533d9718fb0cf53daa9ec163
+      size: 167696
+  convert_pptx_to_pdf_with_image@0:
+    cmd: libreoffice --headless --convert-to pdf data/processed/scenario-0_with_image.pptx
+      --outdir data/processed/
+    deps:
+    - path: data/processed/scenario-0_with_image.pptx
+      hash: md5
+      md5: 71ab7eface7c52e055437a04d27d10a7
+      size: 117778
+    outs:
+    - path: data/processed/scenario-0_with_image.pdf
+      hash: md5
+      md5: 8bffdbb495bdd0e96ec2d8317416cfe1
+      size: 167250
