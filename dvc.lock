@@ -770,7 +770,7 @@ stages:
       size: 3298
   generate_images@0:
     cmd: poetry run python -m src.generate_images data/interim/scenario-0.md data/interim/scenario-0_with_image.md
-      data/interim/images-0/ --temperature=0.8
+      data/interim/images-0/ --temperature=0.8 --enable_dummy=true
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
@@ -778,13 +778,13 @@ stages:
       size: 10879
     - path: src/generate_images.py
       hash: md5
-      md5: ff68f737d1ca8487d1496d6435eac8a4
-      size: 4970
+      md5: b36ab2a57b57bae5ff93b1bc9f33fef6
+      size: 5719
     outs:
     - path: data/interim/images-0/
       hash: md5
-      md5: 44673713cdb250b1cb6845cd8cb1100b.dir
-      size: 41488088
+      md5: 2b1479d408f7a3c907b9bfdb29d04fb8.dir
+      size: 175504
       nfiles: 28
     - path: data/interim/scenario-0_with_image.md
       hash: md5
@@ -798,8 +798,8 @@ stages:
     deps:
     - path: data/interim/images-0/
       hash: md5
-      md5: 44673713cdb250b1cb6845cd8cb1100b.dir
-      size: 41488088
+      md5: 2b1479d408f7a3c907b9bfdb29d04fb8.dir
+      size: 175504
       nfiles: 28
     - path: data/interim/scenario-0_with_image.md
       hash: md5
@@ -812,8 +812,8 @@ stages:
     outs:
     - path: data/interim/scenario-0_with_image.pdf
       hash: md5
-      md5: 13d0ff9b2a83685094c23781b6fa01c5
-      size: 56771367
+      md5: 72bbab54bb6e228183096f93a2cb33c7
+      size: 479518
   convert_markdown_to_pptx_with_image@0:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-0_with_image.md
       data/processed/scenario-0_with_image.pptx
