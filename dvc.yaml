@@ -111,7 +111,7 @@ stages:
     - data/interim/scenario-${item.id}_with_image.md
     - data/interim/images-${item.id}/
 
-  # Marp Markdown と生成されが画像から PDF を作成する
+  # Marp Markdown と生成された画像から PDF を作成する
   convert_markdown_to_pdf_with_image:
     matrix:
       id: ${ids}
@@ -132,6 +132,27 @@ stages:
     outs:
     - data/interim/scenario-${item.id}_with_image.pdf
 
+  # Marp Markdown と生成された画像から HTML を作成する
+  convert_markdown_to_html_with_image:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      mkdir -p build ; rm -fr build/* ;
+      cp src/style.css build/ ;
+      cp data/interim/scenario-${item.id}_with_image.md build/temp.md ;
+      cp -r data/interim/images-${item.id} build/ ;
+      docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
+      temp.md -o temp.html --html --theme style.css
+      --allow-local-files ;
+      cp build/temp.html
+      data/interim/scenario-${item.id}_with_image.html
+    deps:
+    - src/style.css
+    - data/interim/scenario-${item.id}_with_image.md
+    - data/interim/images-${item.id}/
+    outs:
+    - data/interim/scenario-${item.id}_with_image.html
+
   # Marp Markdown から編集可能な PPTX に変換する
   convert_markdown_to_pptx_with_image:
     matrix:
@@ -146,4 +167,17 @@ stages:
     - data/interim/images-${item.id}/
     outs:
     - data/processed/scenario-${item.id}_with_image.pptx
+
+  # PPTX から PDF に変換する(LibreOfficが必要)
+  convert_pptx_to_pdf_with_image:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      libreoffice --headless --convert-to pdf
+      data/processed/scenario-${item.id}_with_image.pptx
+      --outdir data/processed/
+    deps:
+    - data/processed/scenario-${item.id}_with_image.pptx
+    outs:
+    - data/processed/scenario-${item.id}_with_image.pdf
 
