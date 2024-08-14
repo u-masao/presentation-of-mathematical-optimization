@@ -130,3 +130,18 @@ stages:
     - data/interim/images-${item.id}/
     outs:
     - data/interim/scenario-${item.id}_with_image.pdf
+
+  # Marp Markdown から編集可能な PPTX に変換する
+  convert_markdown_to_pptx_with_image:
+    matrix:
+      id: ${ids}
+    cmd: >-
+      poetry run python -m src.md_to_pptx
+      data/interim/scenario-${item.id}_with_image.md
+      data/processed/scenario-${item.id}_with_image.pptx
+    deps:
+    - src/md_to_pptx.py
+    - data/interim/scenario-${item.id}_with_image.md
+    outs:
+    - data/processed/scenario-${item.id}_with_image.pptx
+
