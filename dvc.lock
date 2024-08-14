@@ -44,13 +44,13 @@ stages:
       size: 3254
     - path: src/prompt.md
       hash: md5
-      md5: c38d88cb9bbc069a542be698d027e65c
-      size: 8022
+      md5: 6d6ce5ca922129c4258371890e15f60b
+      size: 8411
     outs:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: b80c198f0059b08f9d0a70012e1cefdd
-      size: 12696
+      md5: 9b6c24cf2257a009064c3373a572e8fb
+      size: 16275
   generate_scenario@1:
     cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-1.md
       --temperature=0.8
@@ -598,3 +598,219 @@ stages:
       hash: md5
       md5: 035e4364eb344a29ac505f863f4d294e
       size: 163747
+  generate_prompt@時系列解析:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_時系列解析.md
+      --theme_keyword=時系列解析
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_時系列解析.md
+      hash: md5
+      md5: c347c69744a55400ed0e687e014e476b
+      size: 3437
+  generate_prompt@線形ガウス状態空間モデル:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_線形ガウス状態空間モデル.md
+      --theme_keyword=線形ガウス状態空間モデル
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_線形ガウス状態空間モデル.md
+      hash: md5
+      md5: 5a4440a063dd37327640a2293667a405
+      size: 3778
+  generate_prompt@異常検知:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_異常検知.md
+      --theme_keyword=異常検知
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_異常検知.md
+      hash: md5
+      md5: 46b0718fa731a1110be1f4ca0d6f31be
+      size: 3262
+  generate_prompt@推薦モデル:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_推薦モデル.md
+      --theme_keyword=推薦モデル
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_推薦モデル.md
+      hash: md5
+      md5: 9f2df55e3f1f068a91925c4a986176c5
+      size: 3259
+  generate_prompt@強化学習:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_強化学習.md
+      --theme_keyword=強化学習
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_強化学習.md
+      hash: md5
+      md5: c8aa79fc30a1fe52623b426fb6f5dd18
+      size: 3639
+  generate_prompt@最適化問題:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_最適化問題.md
+      --theme_keyword=最適化問題
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_最適化問題.md
+      hash: md5
+      md5: 84badb9ea5ea7571a935fecd7414d845
+      size: 3203
+  generate_prompt@ベイズ統計による検定:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_ベイズ統計による検定.md
+      --theme_keyword=ベイズ統計による検定
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_ベイズ統計による検定.md
+      hash: md5
+      md5: 5314617cf02bd099f4223c0d5e6d339c
+      size: 3578
+  generate_prompt@統計的仮説検定:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_統計的仮説検定.md
+      --theme_keyword=統計的仮説検定
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_統計的仮説検定.md
+      hash: md5
+      md5: 61b65595c7d85b9fef9deda50064c74b
+      size: 3281
+  generate_prompt@反実仮想機械学習:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_反実仮想機械学習.md
+      --theme_keyword=反実仮想機械学習
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_反実仮想機械学習.md
+      hash: md5
+      md5: 582808beedc4eb75c1c4aa2074e7b459
+      size: 3080
+  generate_prompt@テキスト埋め込みモデルを利用したベクトル検索:
+    cmd: poetry run python -m src.generate_prompt src/meta_prompt.md data/interim/prompt_sample_テキスト埋め込みモデルを利用したベクトル検索.md
+      --theme_keyword=テキスト埋め込みモデルを利用したベクトル検索
+    deps:
+    - path: src/generate_prompt.py
+      hash: md5
+      md5: 561e5e9099e811d695a81d698997db84
+      size: 3476
+    - path: src/meta_prompt.md
+      hash: md5
+      md5: df68039596d487b93da40f2ddf30629d
+      size: 733
+    outs:
+    - path: data/interim/prompt_sample_テキスト埋め込みモデルを利用したベクトル検索.md
+      hash: md5
+      md5: aadbfe8bddeca9b58e3f8854c21faea8
+      size: 3717
+  generate_images@0:
+    cmd: poetry run python -m src.generate_images data/interim/scenario-0.md data/interim/scenario-0_with_image.md
+      data/interim/images-0/ --temperature=0.8
+    deps:
+    - path: data/interim/scenario-0.md
+      hash: md5
+      md5: 9b6c24cf2257a009064c3373a572e8fb
+      size: 16275
+    - path: src/generate_images.py
+      hash: md5
+      md5: 0604dbcfcf20021db57e248381983307
+      size: 4385
+    outs:
+    - path: data/interim/images-0/
+      hash: md5
+      md5: 48e324dc9c2e434a2e27710d9ffa1177.dir
+      size: 54282660
+      nfiles: 35
+    - path: data/interim/scenario-0_with_image.md
+      hash: md5
+      md5: 567a149cd487484388a7226926ff9d33
+      size: 17644
+  convert_markdown_to_pdf_with_image@0:
+    cmd: mkdir -p build ; rm -fr build/* ; cp src/style.css build/ ; cp data/interim/scenario-0_with_image.md
+      build/temp.md ; cp -r data/interim/images-0 build/ ; docker run --rm -v ./build/:/home/marp/app
+      marp-cli-ja marp temp.md -o temp.pdf --pdf --theme style.css --allow-local-files
+      ; cp build/temp.pdf data/interim/scenario-0_with_image.pdf
+    deps:
+    - path: data/interim/images-0/
+      hash: md5
+      md5: 188fd2c64520dc1cf0775adba3afe7b6.dir
+      size: 55951687
+      nfiles: 35
+    - path: data/interim/scenario-0_with_image.md
+      hash: md5
+      md5: e083393d9a1f1c8a2680b8c8dcfbb6fa
+      size: 17189
+    - path: src/style.css
+      hash: md5
+      md5: 04ebe0b59897bed0d6a6e610df1b5351
+      size: 319
+    outs:
+    - path: data/interim/scenario-0_with_image.pdf
+      hash: md5
+      md5: 7a55cff35c15eb6a6d4325c619cdf661
+      size: 75974835
