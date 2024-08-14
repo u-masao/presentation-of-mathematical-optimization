@@ -44,13 +44,13 @@ stages:
       size: 2959
     - path: src/prompt.md
       hash: md5
-      md5: 22beaf8a4a673136f23ee11478ae4495
-      size: 6381
+      md5: 885862a6d643c65c9cd038595d7af5a3
+      size: 6806
     outs:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: aaf3948a41f5d852ab0a470070279a46
-      size: 10308
+      md5: 3f1eb4a689943f51b161f0d5e56ee63e
+      size: 8846
   generate_scenario@1:
     cmd: poetry run python -m src.generate_scenario src/prompt.md data/interim/scenario-1.md
       --temperature=0.8
@@ -181,17 +181,17 @@ stages:
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: aaf3948a41f5d852ab0a470070279a46
-      size: 10308
+      md5: 3f1eb4a689943f51b161f0d5e56ee63e
+      size: 8846
     - path: src/style.css
       hash: md5
-      md5: eb38ee4a9d6acbef1727b67efcf77e7f
-      size: 134
+      md5: 92f977cd88a1ad99e7fd77d7f291ba2e
+      size: 172
     outs:
     - path: data/interim/scenario-0.pdf
       hash: md5
-      md5: fa5b34444d7925a27d3b17f36ca2d88f
-      size: 728325
+      md5: 61d80c51f63676b62a41006a5ef01964
+      size: 626293
   convert_markdown_to_pdf@1:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-1.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
@@ -251,8 +251,8 @@ stages:
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: aaf3948a41f5d852ab0a470070279a46
-      size: 10308
+      md5: 3f1eb4a689943f51b161f0d5e56ee63e
+      size: 8846
     - path: src/md_to_pptx.py
       hash: md5
       md5: 8fcc3bed849c23d4f768282c7b871d5c
@@ -260,8 +260,8 @@ stages:
     outs:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: bf03dffb8716a0dfe47bd57b8107533e
-      size: 114935
+      md5: 4b393b325e7e46a2641c0b02a13bea28
+      size: 120371
   convert_markdown_to_pptx@1:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-1.md data/processed/scenario-1.pptx
     deps:
@@ -316,13 +316,13 @@ stages:
     deps:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: bf03dffb8716a0dfe47bd57b8107533e
-      size: 114935
+      md5: 4b393b325e7e46a2641c0b02a13bea28
+      size: 120371
     outs:
     - path: data/processed/scenario-0.pdf
       hash: md5
-      md5: 43414fd4573d846377dd9de0683d876a
-      size: 190418
+      md5: c8b7b034963250ffd4a053686f99a933
+      size: 164555
   convert_pptx_to_pdf@1:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-1.pptx --outdir
       data/processed/
@@ -439,17 +439,17 @@ stages:
     deps:
     - path: data/interim/scenario-0.md
       hash: md5
-      md5: aaf3948a41f5d852ab0a470070279a46
-      size: 10308
+      md5: 3f1eb4a689943f51b161f0d5e56ee63e
+      size: 8846
     - path: src/style.css
       hash: md5
-      md5: eb38ee4a9d6acbef1727b67efcf77e7f
-      size: 134
+      md5: 92f977cd88a1ad99e7fd77d7f291ba2e
+      size: 172
     outs:
     - path: data/interim/scenario-0.html
       hash: md5
-      md5: 64861ce2f525a4feec6b24ff24fdf3b3
-      size: 131788
+      md5: 3ca730695e814dc7e17de53066d2ded2
+      size: 121202
   convert_markdown_to_html@1:
     cmd: mkdir -p build ; rm -f build/* ; cp src/style.css build/ ; cp data/interim/scenario-1.md
       build/temp.md ; docker run --rm -v ./build/:/home/marp/app marp-cli-ja marp
