@@ -1,5 +1,9 @@
 @import "default";
 
+section {
+  justify-content: start;
+}
+
 body {
   font-family: "Noto Serif CJK JP",serif;
 }
