@@ -126,7 +126,7 @@ def parse_input_and_generate_image(
 
             # generate
             if enable_dummy:
-                images = generate_dummy_image()
+                images = generate_dummy_image(prompt)
             else:
                 images = generate_image(prompt, model_name=model_name)
 
