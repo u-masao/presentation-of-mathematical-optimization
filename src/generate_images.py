@@ -121,7 +121,7 @@ def parse_input_and_generate_image(
 
             # 行を編集
             new_lines = (
-                f"![width:400px bg right:40%]({relative_image_path})"
+                f"![width:300px bg right:30%]({relative_image_path})"
                 "\n"
                 f"<!-- image_prompt: {prompt} -->"
             )
