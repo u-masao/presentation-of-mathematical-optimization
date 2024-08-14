@@ -64,17 +64,26 @@ def main(**kwargs):
 
     # split result
     result_dict = result.dict()
-    content = result_dict.pop("content")
+    raw_content = result_dict.pop("content")
 
     # debug output
-    logger.info(content)
-    logger.info(result_dict)
+    logger.info(f"{result_dict=}")
+    logger.info(f"{raw_content=}")
+
+    # strip triple backquotes
+    lines = str(raw_content).strip().split("\n")
+    if lines[0] == "```":
+        del lines[0]
+    if lines[-1] == "```":
+        del lines[-1]
+    content = "\n".join(lines)
 
     # save file
-    open(kwargs["output_filepath"], "w").write(str(content).strip())
+    open(kwargs["output_filepath"], "w").write(content)
 
     # logging
     log_artifact_from_message(prompt, "prompt.txt")
+    log_artifact_from_message(str(raw_content), "generated_raw.md")
     log_artifact_from_message(str(content).strip(), "output.md")
     mlflow.log_params(
         {
