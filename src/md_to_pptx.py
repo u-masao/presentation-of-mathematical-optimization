@@ -105,7 +105,7 @@ def configure_presentation(
     )
 
 
-def make_presentation(html):
+def make_presentation(html, base_path):
     # init logger
     logger = logging.getLogger(__name__)
     prs = Presentation()
@@ -163,14 +163,14 @@ def make_presentation(html):
 
         # スライドを追加
         if slide_texts["title"]:
-            add_slide(prs, slide_texts, slide_html)
+            add_slide(prs, slide_texts, slide_html, base_path)
         else:
             logger.warning(f"skip add slide: {slide_texts}")
 
     return prs
 
 
-def add_slide(prs, slide_texts, slide_html):
+def add_slide(prs, slide_texts, slide_html, base_path: str):
     # init logger
     logger = logging.getLogger(__name__)
     logger.info(f"{slide_texts=}")
@@ -192,6 +192,25 @@ def add_slide(prs, slide_texts, slide_html):
     draw_soup_to_placeholder(content, slide_texts["body"])
     for x in content.text_frame.paragraphs:
         x.font.size = Pt(30)
+
+    # 画像を追加
+    for tag in slide_texts["body"]:
+        for image_tag in tag.find_all("img"):
+
+            # ファイル名を取得して存在確認
+            image_filepath = Path(base_path) / image_tag.get("src")
+            if image_filepath.exists() is not True:
+                # ファイルが無いと諦める
+                continue
+
+            # picture shape を追加
+            picture = slide.shapes.add_picture(
+                str(image_filepath), Mm(200), Mm(50), Mm(120), Mm(120)
+            )
+
+            # 再背面に配置
+            slide.shapes._spTree.remove(picture._element)
+            slide.shapes._spTree.insert(0, picture._element)
 
     # note にデバッグ情報を追加
     slide.notes_slide.notes_text_frame.text = str(slide_html)
@@ -244,13 +263,16 @@ def draw_soup_to_placeholder(ph, soups):
     for soup in soups:
         logger.info(f"{soup=}")
 
-        if soup.name == "p" and len(list(soup.children)) == 1:
+        if soup.name == "p":
             # 'p' の場合
-            pg = ph.text_frame.add_paragraph()
-            pg.text = soup.get_text()
-            pg.level = 0
-            replace_bu_to_regular(pg)
-
+            text = soup.get_text()
+            if len(text) > 0:
+                pg = ph.text_frame.add_paragraph()
+                pg.text = text
+                pg.level = 0
+                replace_bu_to_regular(pg)
+            for child in soup.children:
+                logger.info(f"{child=}")
         elif soup.name == "ol":
             # 'ol' 番号ありリストの場合
             li_items = parse_li(soup, ul_ol="ol", level=0)
@@ -271,9 +293,9 @@ def draw_soup_to_placeholder(ph, soups):
                 pg.level = level
 
 
-def convert_markdown_to_pptx(md_text):
+def convert_markdown_to_pptx(md_text, base_path: str):
     html = markdown.markdown(md_text)
-    return make_presentation(html)
+    return make_presentation(html, base_path)
 
 
 @click.command()
@@ -292,7 +314,9 @@ def main(**kwargs):
     md_text = open(kwargs["input_filepath"], "r").read()
 
     # convert
-    presentation = convert_markdown_to_pptx(md_text)
+    presentation = convert_markdown_to_pptx(
+        md_text, str(Path(kwargs["input_filepath"]).parent)
+    )
 
     # save file
     presentation.save(kwargs["output_filepath"])
