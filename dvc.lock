@@ -778,8 +778,8 @@ stages:
       size: 10879
     - path: src/generate_images.py
       hash: md5
-      md5: 863232b90ed4b035f5760cc122157159
-      size: 4523
+      md5: 4a81a6c36033adc75deeb2479031e3ed
+      size: 4970
     outs:
     - path: data/interim/images-0/
       hash: md5
