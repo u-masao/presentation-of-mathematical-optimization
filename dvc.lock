@@ -255,13 +255,13 @@ stages:
       size: 10879
     - path: src/md_to_pptx.py
       hash: md5
-      md5: 8fcc3bed849c23d4f768282c7b871d5c
-      size: 8824
+      md5: c8a8612949d345b3d585bd5728906943
+      size: 9748
     outs:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: 63e1f79cf6375ad569ffa627a09dc73f
-      size: 100875
+      md5: d7b0725dcda4359afa9d355442c5da31
+      size: 100725
   convert_markdown_to_pptx@1:
     cmd: poetry run python -m src.md_to_pptx data/interim/scenario-1.md data/processed/scenario-1.pptx
     deps:
@@ -316,13 +316,13 @@ stages:
     deps:
     - path: data/processed/scenario-0.pptx
       hash: md5
-      md5: 63e1f79cf6375ad569ffa627a09dc73f
-      size: 100875
+      md5: d7b0725dcda4359afa9d355442c5da31
+      size: 100725
     outs:
     - path: data/processed/scenario-0.pdf
       hash: md5
-      md5: 2f45244ff4bb94cb4901f9f01feab274
-      size: 148310
+      md5: ef1c5947270997c736a5fafc9d41f9b5
+      size: 148316
   convert_pptx_to_pdf@1:
     cmd: libreoffice --headless --convert-to pdf data/processed/scenario-1.pptx --outdir
       data/processed/
@@ -778,7 +778,7 @@ stages:
       size: 10879
     - path: src/generate_images.py
       hash: md5
-      md5: 4a81a6c36033adc75deeb2479031e3ed
+      md5: ff68f737d1ca8487d1496d6435eac8a4
       size: 4970
     outs:
     - path: data/interim/images-0/
@@ -788,7 +788,7 @@ stages:
       nfiles: 28
     - path: data/interim/scenario-0_with_image.md
       hash: md5
-      md5: fd3d9b89b349bab2e6016f094067ef53
+      md5: 46e0d85d8366290c72d41ad4aac58085
       size: 11963
   convert_markdown_to_pdf_with_image@0:
     cmd: mkdir -p build ; rm -fr build/* ; cp src/style.css build/ ; cp data/interim/scenario-0_with_image.md
@@ -803,7 +803,7 @@ stages:
       nfiles: 28
     - path: data/interim/scenario-0_with_image.md
       hash: md5
-      md5: fd3d9b89b349bab2e6016f094067ef53
+      md5: 46e0d85d8366290c72d41ad4aac58085
       size: 11963
     - path: src/style.css
       hash: md5
@@ -812,5 +812,22 @@ stages:
     outs:
     - path: data/interim/scenario-0_with_image.pdf
       hash: md5
-      md5: bdde1844d02a1e4e210af2b2741cc1b6
-      size: 56771249
+      md5: 13d0ff9b2a83685094c23781b6fa01c5
+      size: 56771367
+  convert_markdown_to_pptx_with_image@0:
+    cmd: poetry run python -m src.md_to_pptx data/interim/scenario-0_with_image.md
+      data/processed/scenario-0_with_image.pptx
+    deps:
+    - path: data/interim/scenario-0_with_image.md
+      hash: md5
+      md5: 46e0d85d8366290c72d41ad4aac58085
+      size: 11963
+    - path: src/md_to_pptx.py
+      hash: md5
+      md5: c8a8612949d345b3d585bd5728906943
+      size: 9748
+    outs:
+    - path: data/processed/scenario-0_with_image.pptx
+      hash: md5
+      md5: 45facf5ad8123b23b919c5021c23bee0
+      size: 41389671
