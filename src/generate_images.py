@@ -1,3 +1,4 @@
+import io
 import logging
 import re
 import tempfile
@@ -9,6 +10,7 @@ import requests
 from dotenv import load_dotenv
 from object_cache import object_cache
 from openai import OpenAI
+from PIL import Image, ImageDraw
 from tqdm import tqdm
 
 
@@ -36,6 +38,23 @@ def get_image_as_bytes(url):
 
     # return Bytes image content
     return response.content
+
+
+def generate_dummy_image(
+    prompt: str,
+    model_name: str = "dall-e-3",
+    image_width: int = 1024,
+    image_height: int = 1024,
+    quality: str = "standard",
+    n: int = 1,
+):
+    img = Image.new("RGB", (image_width, image_height), color="green")
+    draw = ImageDraw.Draw(img)
+    draw.text((image_width // 2, image_height // 2), "Dummy Image")
+
+    image_bytes = io.BytesIO()
+    img.save(image_bytes, format="PNG")
+    return image_bytes.getvalue()
 
 
 @object_cache
@@ -67,6 +86,7 @@ def parse_input_and_generate_image(
     images_dir: str,
     output_filepath: str,
     model_name: str = "dall-e-3",
+    enable_dummy: bool = False,
 ):
     """
     入力をパースして画像を作成
@@ -105,7 +125,10 @@ def parse_input_and_generate_image(
             logger.info(f"{prompt=}")
 
             # generate
-            images = generate_image(prompt, model_name=model_name)
+            if enable_dummy:
+                images = generate_dummy_image()
+            else:
+                images = generate_image(prompt, model_name=model_name)
 
             # パスを計算
             image_filepath = images_dir / f"image_{index}.png"
@@ -141,6 +164,7 @@ def parse_input_and_generate_image(
 @click.argument("output_images_dir", type=click.Path())
 @click.option("--temperature", type=float, default=0.8)
 @click.option("--model_name", type=str, default="dall-e-3")
+@click.option("--enable_dummy", type=bool, default=False)
 def main(**kwargs):
 
     # init logger
@@ -162,6 +186,7 @@ def main(**kwargs):
         model_name=kwargs["model_name"],
         images_dir=kwargs["output_images_dir"],
         output_filepath=kwargs["output_filepath"],
+        enable_dummy=kwargs["enable_dummy"],
     )
 
     # save file
