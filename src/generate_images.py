@@ -54,7 +54,7 @@ def generate_dummy_image(
 
     image_bytes = io.BytesIO()
     img.save(image_bytes, format="PNG")
-    return image_bytes.getvalue()
+    return [image_bytes.getvalue()]
 
 
 @object_cache
