@@ -12,10 +12,10 @@ from openai import OpenAI
 from tqdm import tqdm
 
 
-def log_artifact_from_message(message, filename):
+def log_artifact_from_message(message, filename, mode:str="w"):
     with tempfile.TemporaryDirectory() as temp_dir:
         file_path = Path(temp_dir) / filename
-        open(file_path, "w").write(message)
+        open(file_path, mode).write(message)
         mlflow.log_artifact(file_path)
 
 
@@ -104,6 +104,8 @@ def parse_input_and_generate_image(
 
             # ファイルに出力
             open(image_filepath, "wb").write(images[0])
+            mlflow.log_artifact(image_filepath)
+            log_artifact_from_message(prompt, f'image_{index}_prompt.txt')
 
             # 行を編集
             line = (
