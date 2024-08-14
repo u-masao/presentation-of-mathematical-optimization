@@ -39,6 +39,7 @@ lint:
 	poetry run isort src
 	poetry run black src -l 79
 	poetry run flake8 src
+	poetry run mdformat src/prompt.md
 
 ## mlflow ui runner
 mlflow_ui:
