@@ -1,5 +1,9 @@
 @import "default";
 
+body {
+  font-family: "Noto Serif CJK JP",serif;
+}
+
 section {
   justify-content: start;
 }
@@ -8,10 +12,13 @@ blockquote {
     font-size: 0.6em;
 }
 
-body {
-  font-family: "Noto Serif CJK JP",serif;
+section.subtitle h1,
+section.subtitle h2 {
+    color: red;
 }
 
-h1 {
+section h1,
+section h2,
+section h3 {
   color: green;
 }
